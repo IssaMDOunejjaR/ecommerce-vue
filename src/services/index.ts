@@ -5,5 +5,5 @@ export const api = axios.create({
 });
 
 export const localApi = axios.create({
-  baseURL: 'https://vue-ecommerce-db.vercel.app'
+  baseURL: 'https://vue-ecommerce-db.vercel.app/api'
 });
