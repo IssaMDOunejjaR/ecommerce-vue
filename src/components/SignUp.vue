@@ -11,7 +11,8 @@ const handleSubmit = () => {
   createUser({
     username: username.value,
     email: email.value,
-    password: password.value
+    password: password.value,
+    cart: []
   }).then((response) => {
     console.log(response);
   });

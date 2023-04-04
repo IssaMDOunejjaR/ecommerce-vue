@@ -1,7 +1,5 @@
 import CartPageVue from '@/views/CartPage.vue';
-import CheckoutPageVue from '@/views/CheckoutPage.vue';
 import HomePageVue from '@/views/HomePage.vue';
-import OrderConfirmationVue from '@/views/OrderConfirmation.vue';
 import ProductDetailsVue from '@/views/ProductDetails.vue';
 import ProductsPageVue from '@/views/ProductsPage.vue';
 import CategoriesPage from '@/views/CategoriesPage.vue';
@@ -40,16 +38,6 @@ const router = createRouter({
       path: '/cart',
       name: 'cart',
       component: CartPageVue
-    },
-    {
-      path: '/checkout',
-      name: 'checkout',
-      component: CheckoutPageVue
-    },
-    {
-      path: '/order-confirmation',
-      name: 'order-confirmation',
-      component: OrderConfirmationVue
     }
   ]
 });
