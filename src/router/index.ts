@@ -4,6 +4,7 @@ import ProductDetailsVue from '@/views/ProductDetails.vue';
 import ProductsPageVue from '@/views/ProductsPage.vue';
 import CategoriesPage from '@/views/CategoriesPage.vue';
 import ProductsByCategory from '@/views/ProductsByCategory.vue';
+import NotFound from '@/views/NotFound.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const router = createRouter({
@@ -38,6 +39,11 @@ const router = createRouter({
       path: '/cart',
       name: 'cart',
       component: CartPageVue
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'not-found',
+      component: NotFound
     }
   ]
 });

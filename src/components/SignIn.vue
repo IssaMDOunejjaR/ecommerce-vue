@@ -12,9 +12,11 @@ const { dispatch } = useStore();
 
 const handleSubmit = () => {
   authUser(username.value, password.value).then((response) => {
-    localStorage.setItem('user', JSON.stringify(response[0]));
+    if (response.length > 0) {
+      localStorage.setItem('user', JSON.stringify(response[0]));
 
-    dispatch('setUser', response[0]);
+      dispatch('setUser', response[0]);
+    }
   });
 };
 </script>

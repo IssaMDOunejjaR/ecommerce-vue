@@ -46,8 +46,10 @@ const decrementQuantity = () => {};
       class="w-[100px] h-[100px] shadow rounded"
     />
 
-    <div>
-      <h3 class="font-semibold text-2xl">{{ product?.title }}</h3>
+    <div class="flex flex-col">
+      <router-link :to="`/products/${product?.id}`" class="font-semibold text-2xl">{{
+        product?.title
+      }}</router-link>
       <small class="text-gray-500">{{ product?.category.name }}</small>
       <p class="font-semibold text-lg">$ {{ product?.price }}</p>
     </div>

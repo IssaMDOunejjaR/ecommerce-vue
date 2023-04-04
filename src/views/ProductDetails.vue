@@ -58,7 +58,7 @@ const handleAddToCart = () => {
 <template>
   <main class="p-4">
     <div class="container">
-      <div class="flex">
+      <div class="flex flex-col lg:flex-row">
         <div class="flex flex-col gap-4 flex-1">
           <img :src="selectedPicture" :alt="product?.title" class="rounded shadow" />
 

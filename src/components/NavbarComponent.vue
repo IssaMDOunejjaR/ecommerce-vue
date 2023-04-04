@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import NavbarLink from './NavbarLink.vue';
-import SearchBar from './SearchBar.vue';
 import Modal from './ModalComponent.vue';
 import SignIn from './SignIn.vue';
 import SignUp from './SignUp.vue';
@@ -38,19 +37,26 @@ const handleLogout = () => {
 <template>
   <nav class="sticky top-0 bg-white px-3 border-b shadow-sm z-10">
     <div class="relative container flex items-center gap-8 py-3">
-      <h1 class="text-5xl font-extrabold uppercase text-orange-500">E-Shop</h1>
+      <h1 class="text-2xl md:text-5xl font-extrabold uppercase text-orange-500">E-Shop</h1>
 
-      <ul class="hidden md:flex gap-4">
+      <ul class="flex gap-4 text-xs md:text-base">
         <NavbarLink to="/" title="Home" />
         <NavbarLink to="/products" title="Products" />
         <NavbarLink to="/categories" title="Categories" />
       </ul>
 
-      <SearchBar />
-
       <div class="ml-auto flex items-center gap-4">
-        <button class="p-1.5 border rounded-full border-black" @click="() => toggleShow('cart')">
+        <button
+          class="relative p-1.5 border rounded-full border-black"
+          @click="() => toggleShow('cart')"
+        >
           <img src="https://www.svgrepo.com/show/506144/cart-4.svg" alt="cart" class="w-5 h-5" />
+          <div
+            v-if="state.user.cart.length > 0"
+            class="absolute -bottom-1 -right-1 bg-orange-500 text-white text-xs rounded-full w-4 h-4"
+          >
+            {{ state.user.cart.length }}
+          </div>
         </button>
         <button
           v-if="state.user"

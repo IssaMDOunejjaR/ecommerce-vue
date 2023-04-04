@@ -5,11 +5,6 @@ import { getAllProducts } from '../services/products';
 
 import ProductCard from '../components/ProductCard.vue';
 import Loader from '../components/LoaderComponent.vue';
-import { useStore } from 'vuex';
-
-const { state } = useStore();
-
-console.log(state.user);
 
 const products = ref<Product[]>([]);
 const isLoading = ref(true);

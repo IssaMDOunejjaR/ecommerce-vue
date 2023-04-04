@@ -1,10 +1,26 @@
 <script setup lang="ts">
-import type { Product } from '../types';
+import { updateUser } from '../services/users';
+import type { Cart, Product } from '../types';
 import { defineProps } from 'vue';
+import { useStore } from 'vuex';
 
-defineProps<{
+const { state, dispatch } = useStore();
+
+const props = defineProps<{
   data: Product;
 }>();
+
+const handleAddToCart = () => {
+  const payload = { productId: props.data.id, quantity: 1 };
+
+  updateUser(state.user.id, {
+    ...state.user,
+    cart: [...state.user.cart.filter((item: Cart) => item.productId !== props.data.id), payload]
+  }).then((response) => {
+    localStorage.setItem('user', JSON.stringify(response));
+    dispatch('addToCart', payload);
+  });
+};
 </script>
 
 <template>
@@ -21,7 +37,10 @@ defineProps<{
       </div>
 
       <div class="flex mt-auto items-center">
-        <button class="bg-orange-500 p-1.5 rounded flex-1 flex justify-center items-center">
+        <button
+          class="bg-orange-500 p-1.5 rounded flex-1 flex justify-center items-center"
+          @click.stop="handleAddToCart"
+        >
           <img
             src="https://www.svgrepo.com/show/506144/cart-4.svg"
             alt="cart"
