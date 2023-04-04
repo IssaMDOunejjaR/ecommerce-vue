@@ -22,20 +22,18 @@ watchEffect(() => {
 </script>
 
 <template>
-  <main class="p-4">
-    <div class="flex flex-col gap-8">
-      <!-- Top Products -->
-      <TopProducts :data="products" />
+  <main class="flex flex-col gap-8">
+    <!-- Top Products -->
+    <TopProducts :data="products" />
 
-      <!-- Features -->
-      <Features />
+    <!-- Features -->
+    <Features />
 
-      <!-- Top Categories -->
-      <TopCategories :data="products" />
+    <!-- Top Categories -->
+    <TopCategories :data="products" />
 
-      <!-- Sales -->
-      <Sales :data="products" />
-    </div>
+    <!-- Sales -->
+    <Sales :data="products" />
   </main>
 
   <Loader v-if="isLoading" />

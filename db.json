@@ -9,6 +9,14 @@
         {
           "productId": 84,
           "quantity": 1
+        },
+        {
+          "productId": 16,
+          "quantity": 1
+        },
+        {
+          "productId": 97,
+          "quantity": 1
         }
       ]
     }

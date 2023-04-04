@@ -39,7 +39,7 @@ const decrementQuantity = () => {};
 </script>
 
 <template>
-  <div class="flex items-center gap-2">
+  <div class="flex items-center gap-8">
     <img
       :src="product?.images[0]"
       :alt="product?.title"
@@ -52,7 +52,7 @@ const decrementQuantity = () => {};
       <p class="font-semibold text-lg">$ {{ product?.price }}</p>
     </div>
 
-    <div class="ml-20 flex flex-col gap-2">
+    <div class="ml-auto flex flex-col gap-2">
       <h4>Quantity:</h4>
       <div class="flex items-center gap-2">
         <button class="border bg-gray-100 rounded border-gray-300" @click="decrementQuantity">
@@ -78,14 +78,14 @@ const decrementQuantity = () => {};
       </div>
     </div>
 
-    <div class="ml-20">
+    <div>
       <h4 class="flex gap-2">
         Total:
         <span class="text-xl font-semibold">$ {{ product && product.price * quantity }}</span>
       </h4>
     </div>
 
-    <button class="ml-auto p-1 bg-red-500 rounded" @click="handleDeleteFromCart">
+    <button class="p-1 bg-red-500 rounded" @click="handleDeleteFromCart">
       <img src="https://www.svgrepo.com/show/506767/trash.svg" alt="trash" class="w-8 h-8 invert" />
     </button>
   </div>

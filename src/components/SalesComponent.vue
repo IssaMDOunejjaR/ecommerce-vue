@@ -22,7 +22,7 @@ const randomProducts = computed(() => {
 </script>
 
 <template>
-  <div class="container">
+  <div class="container p-4">
     <h1 class="font-semibold text-xl mb-3">Sales</h1>
 
     <div

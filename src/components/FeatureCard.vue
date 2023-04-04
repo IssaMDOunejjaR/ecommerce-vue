@@ -9,7 +9,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="flex gap-4 items-center">
+  <div class="flex gap-4 items-center justify-center">
     <div class="p-4 border border-white rounded-full">
       <img :src="img" :alt="title" class="w-10 h-10 invert" />
     </div>
