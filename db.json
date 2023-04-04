@@ -1,0 +1,16 @@
+{
+  "users": [
+    {
+      "username": "test",
+      "email": "test@test.com",
+      "password": "test",
+      "id": 1,
+      "cart": [
+        {
+          "productId": 84,
+          "quantity": 1
+        }
+      ]
+    }
+  ]
+}
