@@ -12,7 +12,8 @@ const handleSubmit = () => {
     username: username.value,
     email: email.value,
     password: password.value,
-    cart: []
+    cart: [],
+    orders: []
   }).then((response) => {
     console.log(response);
   });
