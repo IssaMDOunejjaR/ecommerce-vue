@@ -11,11 +11,11 @@ const props = defineProps<{
 }>();
 
 const handleAddToCart = () => {
-  const payload = { productId: props.data.id, quantity: 1 };
+  const payload = { product: props.data, quantity: 1 };
 
   updateUser(state.user.id, {
     ...state.user,
-    cart: [...state.user.cart.filter((item: Cart) => item.productId !== props.data.id), payload]
+    cart: [...state.user.cart.filter((item: Cart) => item.product.id !== props.data.id), payload]
   }).then((response) => {
     localStorage.setItem('user', JSON.stringify(response));
     dispatch('addToCart', payload);

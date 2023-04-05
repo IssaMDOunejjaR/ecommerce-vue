@@ -7,15 +7,20 @@ import { useStore } from 'vuex';
 
 const username = ref('');
 const password = ref('');
+const error = ref('');
 
 const { dispatch } = useStore();
 
 const handleSubmit = () => {
+  error.value = '';
+
   authUser(username.value, password.value).then((response) => {
     if (response.length > 0) {
       localStorage.setItem('user', JSON.stringify(response[0]));
 
       dispatch('setUser', response[0]);
+    } else {
+      error.value = 'Invalid Username or Password';
     }
   });
 };
@@ -24,6 +29,8 @@ const handleSubmit = () => {
 <template>
   <form class="flex flex-col gap-4 min-w-[300px]" @submit.prevent="handleSubmit">
     <h2 class="text-3xl uppercase font-bold text-center">Login</h2>
+
+    <p v-if="error" class="bg-red-500 text-white p-2 text-center">{{ error }}</p>
 
     <TextBox placeholder="Username" v-model="username" />
     <TextBox type="password" placeholder="Password" v-model="password" />

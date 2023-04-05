@@ -1,3 +1,4 @@
+import { updateUser } from '@/services/users';
 import type { User } from '@/types';
 import { createStore } from 'vuex';
 
@@ -20,20 +21,25 @@ export const store = createStore<{
     },
     removeFromCart: (state, payload) => {
       if (state.user) {
-        state.user.cart = state.user.cart.filter((item) => item.productId !== payload);
+        state.user.cart = state.user.cart.filter((item) => item.product.id !== payload);
       }
     },
     decrementProductFromCart: (state, payload) => {
       if (state.user) {
         state.user.cart = state.user.cart.map((item) =>
-          item.productId === payload ? { ...item, quantity: item.quantity - 1 } : item
+          item.product.id === payload ? { ...item, quantity: item.quantity - 1 } : item
         );
+      }
+    },
+    clearCart: (state) => {
+      if (state.user) {
+        state.user.cart = [];
       }
     },
     incrementProductFromCart: (state, payload) => {
       if (state.user) {
         state.user.cart = state.user.cart.map((item) =>
-          item.productId === payload ? { ...item, quantity: item.quantity + 1 } : item
+          item.product.id === payload ? { ...item, quantity: item.quantity + 1 } : item
         );
       }
     }
@@ -47,6 +53,13 @@ export const store = createStore<{
     },
     removeFromCart: ({ commit }, payload) => {
       commit('removeFromCart', payload);
+    },
+    clearCart: ({ commit, state }) => {
+      if (state.user) {
+        updateUser(state.user.id, { ...state.user, cart: [] }).then(() => {
+          commit('clearCart');
+        });
+      }
     },
     decrementProductFromCart: ({ commit }, payload) => {
       commit('decrementProductFromCart', payload);

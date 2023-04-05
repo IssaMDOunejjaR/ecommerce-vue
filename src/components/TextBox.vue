@@ -11,16 +11,17 @@ const updateValue = (event: any) => {
 </script>
 
 <template>
-  <label class="flex flex-col gap-1" :for="placeholder"
+  <label class="flex flex-col gap-1 text-sm w-full" :for="placeholder"
     >{{ placeholder }}
 
     <input
       :type="type"
       :id="placeholder"
       :placeholder="placeholder"
-      class="border border-gray-300 p-2 rounded"
+      class="border border-gray-300 p-2 rounded flex-1"
       :value="modelValue"
       @input="updateValue"
+      required
     />
   </label>
 </template>

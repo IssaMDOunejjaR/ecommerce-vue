@@ -43,11 +43,14 @@ const decrementQuantity = () => {
 };
 
 const handleAddToCart = () => {
-  const payload = { productId: product.value?.id, quantity: quantity.value };
+  const payload = { product: product.value, quantity: quantity.value };
 
   updateUser(state.user.id, {
     ...state.user,
-    cart: [...state.user.cart.filter((item: Cart) => item.productId !== product.value?.id), payload]
+    cart: [
+      ...state.user.cart.filter((item: Cart) => item.product.id !== product.value?.id),
+      payload
+    ]
   }).then((response) => {
     localStorage.setItem('user', JSON.stringify(response));
     dispatch('addToCart', payload);

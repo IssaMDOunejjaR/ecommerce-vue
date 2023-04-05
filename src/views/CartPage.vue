@@ -5,15 +5,19 @@ import { useStore } from 'vuex';
 
 const { state } = useStore();
 
-const totalPrice = ref(0);
+const total = ref(0);
 
-const handleUpdateTotalPrice = (value: number) => {
-  totalPrice.value += value;
+const handleIncrementTotal = (value: number) => {
+  total.value += value;
+};
+
+const handleDecrementTotal = (value: number) => {
+  total.value -= value;
 };
 </script>
 
 <template>
-  <main class="p-4">
+  <main class="px-4">
     <div class="container">
       <h1 class="text-3xl font-semibold mb-4">Cart</h1>
 
@@ -29,15 +33,22 @@ const handleUpdateTotalPrice = (value: number) => {
           <CartPageCard
             v-for="(item, index) in state.user.cart"
             :key="index"
-            :product-id="item.productId"
+            :product="item.product"
             :quantity="item.quantity"
-            @update-total="handleUpdateTotalPrice"
+            @increment-total="handleIncrementTotal"
+            @decrement-total="handleDecrementTotal"
           />
 
-          <div class="flex justify-end p-4">
+          <div class="flex gap-4 justify-end p-4">
             <p class="text-lg font-semibold flex items-center gap-6">
-              Total Price: <span class="text-4xl font-bold">$ {{ totalPrice }}</span>
+              Total Price: <span class="text-4xl font-bold">$ {{ total }}</span>
             </p>
+
+            <router-link
+              to="/checkout"
+              class="py-2 px-4 font-semibold bg-orange-500 rounded text-white"
+              >Go to checkout</router-link
+            >
           </div>
         </div>
       </div>

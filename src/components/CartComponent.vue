@@ -19,7 +19,7 @@ const { state } = useStore();
           <CartCard
             v-for="(item, index) in state.user.cart.slice(0, 4)"
             :key="index"
-            :product-id="item.productId"
+            :product="item.product"
             :quantity="item.quantity"
           />
         </div>

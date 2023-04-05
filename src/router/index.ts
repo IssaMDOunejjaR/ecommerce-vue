@@ -4,6 +4,9 @@ import ProductDetailsVue from '@/views/ProductDetails.vue';
 import ProductsPageVue from '@/views/ProductsPage.vue';
 import CategoriesPage from '@/views/CategoriesPage.vue';
 import ProductsByCategory from '@/views/ProductsByCategory.vue';
+import CheckoutPage from '@/views/CheckoutPage.vue';
+import OrderConfirmation from '@/views/OrderConfirmation.vue';
+import Profile from '@/views/ProfilePage.vue';
 import NotFound from '@/views/NotFound.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
@@ -39,6 +42,21 @@ const router = createRouter({
       path: '/cart',
       name: 'cart',
       component: CartPageVue
+    },
+    {
+      path: '/checkout',
+      name: 'checkout',
+      component: CheckoutPage
+    },
+    {
+      path: '/order-confirmation/:id',
+      name: 'order-confirmation',
+      component: OrderConfirmation
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: Profile
     },
     {
       path: '/:pathMatch(.*)*',

@@ -18,8 +18,23 @@ export interface Product {
 }
 
 export interface Cart {
-  productId: number;
+  product: Product;
   quantity: number;
+}
+
+export interface Order {
+  orderId: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  country: string;
+  codePostal: string;
+  address: string;
+  cardNumber: string;
+  cardSecurityCode: string;
+  cardExpirationDate: string;
+  items: Cart[];
+  totalPaid: number;
 }
 
 export interface User {
@@ -28,4 +43,5 @@ export interface User {
   email: string;
   password: string;
   cart: Cart[];
+  orders: Order[];
 }

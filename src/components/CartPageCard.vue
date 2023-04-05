@@ -1,50 +1,74 @@
 <script setup lang="ts">
 import { updateUser } from '../services/users';
-import { getProductById } from '../services/products';
-import type { Product } from '../types';
-import { watchEffect, defineProps, ref, type Ref } from 'vue';
+import type { Cart, Product } from '../types';
+import { defineProps, ref, onUnmounted } from 'vue';
 import { useStore } from 'vuex';
+import CartCard from './CartCard.vue';
+import ProductCard from './ProductCard.vue';
 
-const emit = defineEmits(['update-total']);
+const emit = defineEmits(['increment-total', 'decrement-total']);
 
 const { state, dispatch } = useStore();
 
 const props = defineProps<{
-  productId: number;
+  product: Product;
   quantity: number;
 }>();
 
-const product = ref<Product>();
 const quantity = ref(props.quantity);
 
-watchEffect(() => {
-  getProductById(props.productId).then((response) => {
-    product.value = response;
-
-    emit('update-total', product.value.price * quantity.value);
-  });
-});
+emit('increment-total', props.product.price * quantity.value);
 
 const handleDeleteFromCart = () => {
-  dispatch('removeFromCart', product.value?.id);
+  dispatch('removeFromCart', props.product.id);
 
   updateUser(state.user.id, state.user).then((response) => {
     localStorage.setItem('user', JSON.stringify(response));
   });
 };
 
-const incrementQuantity = () => {};
+const incrementQuantity = () => {
+  if (quantity.value < 100) {
+    emit('decrement-total', props.product.price * quantity.value);
+    quantity.value++;
 
-const decrementQuantity = () => {};
+    updateUser(state.user.id, {
+      ...state.user,
+      cart: state.user.cart.map((item: Cart) =>
+        item.product.id === props.product.id ? { ...item, quantity: item.quantity + 1 } : item
+      )
+    }).then((response) => {
+      localStorage.setItem('user', JSON.stringify(response));
+    });
+    emit('increment-total', props.product.price * quantity.value);
+  }
+};
+
+const decrementQuantity = () => {
+  if (quantity.value > 0) {
+    emit('decrement-total', props.product.price * quantity.value);
+    quantity.value--;
+
+    updateUser(state.user.id, {
+      ...state.user,
+      cart: state.user.cart.map((item: Cart) =>
+        item.product.id === props.product.id ? { ...item, quantity: item.quantity - 1 } : item
+      )
+    }).then((response) => {
+      localStorage.setItem('user', JSON.stringify(response));
+    });
+    emit('increment-total', props.product.price * quantity.value);
+  }
+};
+
+onUnmounted(() => {
+  emit('decrement-total', props.product.price * quantity.value);
+});
 </script>
 
 <template>
   <div class="flex items-center gap-8">
-    <img
-      :src="product?.images[0]"
-      :alt="product?.title"
-      class="w-[100px] h-[100px] shadow rounded"
-    />
+    <img :src="product.images[0]" :alt="product.title" class="w-[100px] h-[100px] shadow rounded" />
 
     <div class="flex flex-col">
       <router-link :to="`/products/${product?.id}`" class="font-semibold text-2xl">{{
