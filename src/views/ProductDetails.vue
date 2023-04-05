@@ -18,20 +18,29 @@ const similarProducts = ref<Product[]>([]);
 const selectedPicture = ref();
 const isLoading = ref(true);
 const quantity = ref(1);
+const error = ref('');
 
 watchEffect(() => {
+  error.value = '';
   isLoading.value = true;
 
-  getProductById(+route.params['id']!).then((response) => {
-    product.value = response;
-    selectedPicture.value = product?.value?.images[0];
+  getProductById(+route.params['id']!)
+    .then((response) => {
+      product.value = response;
+      selectedPicture.value = product?.value?.images[0];
 
-    getProductsByCategory(product.value.category.id).then((response) => {
-      similarProducts.value = response.filter((item) => item.id !== product?.value?.id).slice(0, 4);
+      getProductsByCategory(product.value.category.id).then((response) => {
+        similarProducts.value = response
+          .filter((item) => item.id !== product?.value?.id)
+          .slice(0, 4);
 
+        isLoading.value = false;
+      });
+    })
+    .catch(() => {
+      error.value = 'Product Not Found !';
       isLoading.value = false;
     });
-  });
 });
 
 const incrementQuantity = () => {
@@ -60,7 +69,7 @@ const handleAddToCart = () => {
 
 <template>
   <main class="p-4">
-    <div class="container">
+    <div v-if="product" class="container">
       <div class="flex flex-col lg:flex-row">
         <div class="flex flex-col gap-4 flex-1">
           <img :src="selectedPicture" :alt="product?.title" class="rounded shadow" />
@@ -138,6 +147,10 @@ const handleAddToCart = () => {
           <ProductCard v-for="(product, index) in similarProducts" :key="index" :data="product" />
         </div>
       </div>
+    </div>
+
+    <div class="container">
+      <p class="text-4xl font-semibold p-8 text-center">{{ error }}</p>
     </div>
   </main>
 
