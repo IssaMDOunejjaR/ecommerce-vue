@@ -32,7 +32,9 @@ const { state } = useStore();
             <p class="text-3xl font-bold">$ {{ order.totalPaid }}</p>
           </router-link>
 
-          <p v-if="state.user.orders.length === 0">You don't have any orders yet !</p>
+          <p v-if="state.user.orders.length === 0" class="text-lg font-semibold text-center">
+            You don't have any orders yet !
+          </p>
         </div>
       </div>
     </div>

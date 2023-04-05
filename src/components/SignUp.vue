@@ -3,6 +3,10 @@ import TextBox from './TextBox.vue';
 import Button from './ButtonComponent.vue';
 import { ref } from 'vue';
 import { createUser } from '../services/users';
+import { defineEmits } from 'vue';
+
+const emit = defineEmits(['handle-toggle']);
+
 const username = ref('');
 const email = ref('');
 const password = ref('');
@@ -14,8 +18,8 @@ const handleSubmit = () => {
     password: password.value,
     cart: [],
     orders: []
-  }).then((response) => {
-    console.log(response);
+  }).then(() => {
+    emit('handle-toggle', 'signin');
   });
 };
 </script>

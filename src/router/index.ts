@@ -9,6 +9,7 @@ import OrderConfirmation from '@/views/OrderConfirmation.vue';
 import Profile from '@/views/ProfilePage.vue';
 import NotFound from '@/views/NotFound.vue';
 import { createRouter, createWebHistory } from 'vue-router';
+import { store } from '@/store';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -46,17 +47,32 @@ const router = createRouter({
     {
       path: '/checkout',
       name: 'checkout',
-      component: CheckoutPage
+      component: CheckoutPage,
+      beforeEnter: (_to, from) => {
+        if (!store.state.user) {
+          return from.path;
+        }
+      }
     },
     {
       path: '/order-confirmation/:id',
       name: 'order-confirmation',
-      component: OrderConfirmation
+      component: OrderConfirmation,
+      beforeEnter: (_to, from) => {
+        if (!store.state.user) {
+          return from.path;
+        }
+      }
     },
     {
       path: '/profile',
       name: 'profile',
-      component: Profile
+      component: Profile,
+      beforeEnter: (_to, from) => {
+        if (!store.state.user) {
+          return from.path;
+        }
+      }
     },
     {
       path: '/:pathMatch(.*)*',
