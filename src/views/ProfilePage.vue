@@ -7,7 +7,7 @@ const { state } = useStore();
 <template>
   <main>
     <div class="container flex flex-col md:flex-row gap-4">
-      <div class="w-[400px] flex flex-col items-center">
+      <div class="md:w-[400px] flex flex-col items-center justify-center">
         <div class="rounded-full p-4 border-2 border-black mb-4">
           <img
             src="https://www.svgrepo.com/show/506352/user-1.svg"
@@ -18,8 +18,8 @@ const { state } = useStore();
         <h2 class="text-2xl font-semibold">{{ state.user.username }}</h2>
         <p class="text-gray-500">{{ state.user.email }}</p>
       </div>
-      <div class="flex-1">
-        <h3 class="text-2xl font-bold mb-6">Orders</h3>
+      <div class="flex-1 p-4">
+        <h3 class="text-2xl font-bold mb-6 text-center md:text-left">Orders</h3>
 
         <div class="flex flex-col gap-2">
           <router-link
